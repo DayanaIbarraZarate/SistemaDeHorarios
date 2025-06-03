@@ -1,0 +1,14 @@
+[
+  {
+    "id": "02c59f3f-4ac3-4e16-8845-b8e0e2f5aff8",
+    "username": "admin",
+    "password": "admin123",
+    "role": "ADMIN"
+  },
+  {
+    "id": "214bf703-d85a-4438-b469-864e1191544b",
+    "username": "prof1",
+    "password": "prof123",
+    "role": "PROFESOR"
+  }
+]

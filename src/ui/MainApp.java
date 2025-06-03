@@ -45,7 +45,7 @@ public class MainApp extends JFrame {
             JButton button = new JButton(item);
             button.setAlignmentX(Component.CENTER_ALIGNMENT);
             button.setMaximumSize(new Dimension(140, 40));
-            button.addActionListener(_ -> handleMenuClick(item));
+            button.addActionListener(e-> handleMenuClick(item));
             sidebar.add(Box.createRigidArea(new Dimension(0, 10)));
             sidebar.add(button);
         }
