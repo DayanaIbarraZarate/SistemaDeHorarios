@@ -1,0 +1,32 @@
+[
+  {
+    "id": "4350c7b8-5d24-4a56-81e2-89cb2a6af73c",
+    "username": "admin",
+    "password": "admin123",
+    "role": "ADMIN"
+  },
+  {
+    "id": "a8836142-853f-44f7-b2f3-192d8481e36b",
+    "username": "prof1",
+    "password": "prof123",
+    "role": "PROFESOR"
+  },
+  {
+    "id": "2ef2c70d-4bd0-4fdc-8f45-b60e09cc5c76",
+    "username": "",
+    "password": "",
+    "role": "ESTUDIANTE"
+  },
+  {
+    "id": "e4c6a30e-e63d-41e1-af53-761ed046c8e7",
+    "username": "deyna",
+    "password": "hola",
+    "role": "ESTUDIANTE"
+  },
+  {
+    "id": "9da91318-5281-4c3f-bb84-7c01112f8bf5",
+    "username": "hola123",
+    "password": "123",
+    "role": "ESTUDIANTE"
+  }
+]
