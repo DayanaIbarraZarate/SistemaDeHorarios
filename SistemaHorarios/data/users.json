@@ -10,5 +10,11 @@
     "username": "prof1",
     "password": "prof123",
     "role": "PROFESOR"
+  },
+  {
+    "id": "7190b50f-fe48-4fe7-b952-034651bf7b3a",
+    "username": "luz",
+    "password": "1234",
+    "role": "ESTUDIANTE"
   }
 ]
