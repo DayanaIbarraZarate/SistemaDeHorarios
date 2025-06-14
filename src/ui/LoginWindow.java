@@ -58,12 +58,21 @@ public class LoginWindow extends JFrame {
                 displayName = user.getUsername();
             }
             JOptionPane.showMessageDialog(this, "¡Bienvenid@, " + displayName + "!");
-            new MainApp();
+             // Según el rol, abre la pantalla adecuada
+            if ("ADMIN".equals(user.getRole())) {
+                new HorarioAdmin();
+            } else if ("PROFESOR".equals(user.getRole())) {
+                new MainApp();
+            } else if ("ESTUDIANTE".equals(user.getRole())) {
+                new MainApp();
+            }
+
             dispose();
         } else {
             JOptionPane.showMessageDialog(this, "Credenciales incorrectas", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
+
 
     private void handleSignup(ActionEvent e) {
         // Campos de registro
