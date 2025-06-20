@@ -1,20 +1,26 @@
 [
   {
-    "id": "02c59f3f-4ac3-4e16-8845-b8e0e2f5aff8",
+    "id": "9cf8e9e5-fc67-4865-8d58-07e8a4d6f842",
     "username": "admin",
     "password": "admin123",
     "role": "ADMIN"
   },
   {
-    "id": "214bf703-d85a-4438-b469-864e1191544b",
+    "id": "8af9bbf6-9318-4a52-a181-2b04e704679e",
     "username": "prof1",
     "password": "prof123",
     "role": "PROFESOR"
   },
   {
-    "id": "148c818c-fb20-4af9-9035-4750c26969b5",
-    "username": "dayana",
-    "password": "daya123",
+    "id": "5176bd4e-4a65-4f6d-8f0c-30d8d978f676",
+    "username": "deyna ",
+    "password": "12345",
+    "role": "ESTUDIANTE"
+  },
+  {
+    "id": "89cdf6d2-8da4-4aaf-8949-44897061b977",
+    "username": "deyna",
+    "password": "12345",
     "role": "ESTUDIANTE"
   }
 ]

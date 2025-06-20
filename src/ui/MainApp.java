@@ -5,9 +5,12 @@ import session.Session;
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
+import ui.ProfesorSchedulePanel; // D importar horario 
 
-public class MainApp extends JFrame {
-    private JPanel contentPanel;
+
+public class MainApp extends JFrame {   
+    private JPanel contentPanel; // D Panel central donde cambia el contenido
+
 
     public MainApp() {
         setTitle("Sistema de Horarios - Estudiante");
@@ -57,7 +60,6 @@ public class MainApp extends JFrame {
             sidebar.add(button);
         }
 
-        // Panel central
         contentPanel = new JPanel(new BorderLayout());
         contentPanel.setBackground(Color.WHITE);
         JLabel welcomeLabel = new JLabel("<html><div style='text-align:center;'><h1>¡Bienvenid@, " 
@@ -65,38 +67,48 @@ public class MainApp extends JFrame {
         welcomeLabel.setFont(new Font("Segoe UI", Font.PLAIN, 16));
         contentPanel.add(welcomeLabel, BorderLayout.CENTER);
 
-        // Layout
         add(sidebar, BorderLayout.WEST);
         add(contentPanel, BorderLayout.CENTER);
         setVisible(true);
     }
 
     private void handleMenuClick(String menuItem) {
-    switch (menuItem) {
-        case "Perfil":
-    // Abrir ventana perfil solo si es estudiante
-            if ("ESTUDIANTE".equals(Session.getCurrentUser().getRole())) {
-               new PerfilEstudiante();
-            } else {
-        JOptionPane.showMessageDialog(this, "Pantalla de Perfil para " + Session.getCurrentUser().getRole());
-            }
-            break;
+      switch (menuItem) {
+          case "Perfil":
+              if ("ESTUDIANTE".equals(Session.getCurrentUser().getRole())) {
+                  new PerfilEstudiante();  // Ventana especial para estudiantes
+              } else if ("PROFESOR".equals(Session.getCurrentUser().getRole())) {
+                  contentPanel.removeAll();
+                  contentPanel.add(new ProfesorProfilePanel(), BorderLayout.CENTER);
+                  contentPanel.revalidate();
+                  contentPanel.repaint();
+              } else {
+                  JOptionPane.showMessageDialog(this, "Pantalla de Perfil para " + Session.getCurrentUser().getRole());
+              }
+              break;
 
-        case "Alertas":
-            showMessage("Pantalla de Alertas (en construcción)");
-            break;
-        case "Horario":
-            showMessage("Pantalla de Horario (en construcción)");
-            break;
-        case "Cerrar Sesión":
-            Session.logout();
-            new LoginWindow();
-            dispose();
-            break;
+          case "Alertas":
+              JOptionPane.showMessageDialog(this, "Pantalla de Alertas (en construcción)");
+              break;
+
+          case "Horario":
+              if ("PROFESOR".equals(Session.getCurrentUser().getRole())) {
+                  contentPanel.removeAll();
+                  contentPanel.add(new ProfesorSchedulePanel(), BorderLayout.CENTER);
+                  contentPanel.revalidate();
+                  contentPanel.repaint();
+              } else {
+                  JOptionPane.showMessageDialog(this, "Pantalla de Horario (en construcción)");
+              }
+              break;
+
+          case "Cerrar Sesión":
+              Session.logout();
+              new LoginWindow();
+              dispose();
+              break;
+        }
     }
-}
- 
-    
     
     private void showMessage(String msg) {
         contentPanel.removeAll();
