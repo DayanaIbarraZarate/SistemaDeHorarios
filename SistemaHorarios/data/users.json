@@ -10,5 +10,17 @@
     "username": "prof1",
     "password": "prof123",
     "role": "PROFESOR"
+  },
+  {
+    "id": "3ed948d9-05f2-43b6-9469-14e314b749df",
+    "username": "deyna",
+    "password": "1234",
+    "role": "ESTUDIANTE"
+  },
+  {
+    "id": "cbc82c70-6acf-4cc4-b050-a840f07ea7e6",
+    "username": "liz",
+    "password": "1234",
+    "role": "ESTUDIANTE"
   }
 ]

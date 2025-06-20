@@ -4,8 +4,14 @@ import session.Session;
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
+import ui.ProfesorSchedulePanel; // D importar horario 
+
 
 public class MainApp extends JFrame {
+     
+    private JPanel contentPanel; // D Panel central donde cambia el contenido
+
+
     public MainApp() {
         setTitle("Sistema de Horarios");
         setSize(800, 600);
@@ -51,7 +57,9 @@ public class MainApp extends JFrame {
         }
         
         // Área de contenido
-        JPanel contentPanel = new JPanel(new BorderLayout());
+        // JPanel contentPanel = new JPanel(new BorderLayout());
+        contentPanel = new JPanel(new BorderLayout());  // D
+
         contentPanel.add(new JLabel("<html><h1>Bienvenido, " + displayName + "!</h1><p>Seleccione una opción del menú</p></html>"),
             BorderLayout.CENTER);
         
@@ -64,14 +72,21 @@ public class MainApp extends JFrame {
     private void handleMenuClick(String menuItem) {
         switch (menuItem) {
             case "Perfil":
-                JOptionPane.showMessageDialog(this, "Pantalla de Perfil");
+            contentPanel.removeAll();
+            contentPanel.add(new ProfesorProfilePanel(), BorderLayout.CENTER);
+            contentPanel.revalidate();
+            contentPanel.repaint();
                 break;
             case "Alertas":
                 JOptionPane.showMessageDialog(this, "Pantalla de Alertas");
                 break;
-            case "Horario":
-                JOptionPane.showMessageDialog(this, "Pantalla de Horario");
-                break;
+            case "Horario":  //D 
+                contentPanel.removeAll();
+                contentPanel.add(new ProfesorSchedulePanel(), BorderLayout.CENTER);
+                contentPanel.revalidate();
+                contentPanel.repaint();
+            break;
+            
             case "Cerrar Sesión":
                 Session.logout();
                 new LoginWindow();
