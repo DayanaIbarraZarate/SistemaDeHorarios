@@ -5,7 +5,7 @@ import session.Session;
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
-import ui.ProfesorSchedulePanel; // D importar horario 
+//import ui.ProfesorSchedulePanel; // D importar horario 
 
 
 public class MainApp extends JFrame {   
@@ -88,7 +88,14 @@ public class MainApp extends JFrame {
               break;
 
           case "Alertas":
-              JOptionPane.showMessageDialog(this, "Pantalla de Alertas (en construcción)");
+            if("PROFESOR".equals(Session.getCurrentUser().getRole())){
+              contentPanel.removeAll();
+              contentPanel.add(new AlertasProfesor(), BorderLayout.CENTER);
+              contentPanel.revalidate();
+              contentPanel.repaint();
+            } else {
+                   JOptionPane.showMessageDialog(this, "Pantalla de Horario (en construcción)");
+            }
               break;
 
           case "Horario":

@@ -24,7 +24,7 @@ public class HorarioAdmin extends JFrame {
         label.setFont(new Font("Segoe UI", Font.BOLD, 22));
         label.setForeground(Color.DARK_GRAY);
         label.setHorizontalAlignment(SwingConstants.CENTER);
-        label.setBorder(new EmptyBorder(20, 0, 10, 0));
+        label.setBorder(new EmptyBorder(20, 10, 10, 10));
         add(label, BorderLayout.NORTH);
 
         // Panel de botones 
