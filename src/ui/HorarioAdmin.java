@@ -4,7 +4,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.event.*;
+//import java.awt.event.*;
 
 public class HorarioAdmin extends JFrame {
 
@@ -48,15 +48,19 @@ public class HorarioAdmin extends JFrame {
         panelButtons.add(cerrarSesion);
         add(panelButtons, BorderLayout.BEFORE_FIRST_LINE);
 
-        // --- Tabla de horario ---
+        //  Tabla de horario 
         String[] columnNames = {"Horario", "LUNES", "MARTES", "MIÉRCOLES", "JUEVES", "VIERNES", "SÁBADO"};
         Object[][] data = {
-                {"08:00", "", "", "", "", "", ""},
-                {"09:00", "", "", "", "", "", ""},
-                {"10:00", "", "", "", "", "", ""},
-                {"11:00", "", "", "", "", "", ""},
-                {"12:00", "", "", "", "", "", ""},
-                {"13:00", "", "", "", "", "", ""}
+                {"06:45-8:15", "", "", "", "", "", ""},
+                {"08:15-09:45", "", "", "", "", "", ""},
+                {"09:45-11:15", "", "", "", "", "", ""},
+                {"11:15-12:45", "", "", "", "", "", ""},
+                {"12:45-14:15", "", "", "", "", "", ""},
+                {"14:15-15:45", "", "", "", "", "", ""},
+                {"15:45-17:15", "", "", "", "", "", ""},
+                {"17:15-18:45", "", "", "", "", "", ""},
+                {"18:45-20:15", "", "", "", "", "", ""},
+                {"20:15-21:45", "", "", "", "", "", ""}
         };
 
         JTable table = new JTable(new DefaultTableModel(data, columnNames));
