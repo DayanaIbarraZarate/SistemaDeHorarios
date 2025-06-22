@@ -3,7 +3,7 @@ package ui;
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.JTableHeader;
+//import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
 import java.awt.*;
 import java.time.LocalTime;
@@ -47,7 +47,7 @@ public class ProfesorSchedulePanel extends JPanel {
         scheduleTable.setFillsViewportHeight(true);
 
         // Estilo de encabezados
-        JTableHeader header = scheduleTable.getTableHeader();
+        //JTableHeader header = scheduleTable.getTableHeader();
         DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer() {
             public Component getTableCellRendererComponent(JTable table, Object value,
                                                            boolean isSelected, boolean hasFocus, int row, int column) {

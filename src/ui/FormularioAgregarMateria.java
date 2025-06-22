@@ -4,7 +4,7 @@ import service.ScheduleService;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Arrays;
+//import java.util.Arrays;
 
 public class FormularioAgregarMateria extends JFrame {
 
@@ -51,7 +51,7 @@ public class FormularioAgregarMateria extends JFrame {
             String horaInicio = (String) horaInicioCombo.getSelectedItem();
             String horaFin = (String) horaFinCombo.getSelectedItem();
             String materia = materiaField.getText().trim();
-            String profesor = profesorField.getText().trim();
+           // String profesor = profesorField.getText().trim();
 
             if (materia.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Debe ingresar una materia.", "Error", JOptionPane.ERROR_MESSAGE);

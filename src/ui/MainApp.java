@@ -4,8 +4,9 @@ import session.Session;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
-import ui.ProfesorSchedulePanel; // D importar horario 
+//import ui.ProfesorSchedulePanel; // D importar horario 
 
 
 public class MainApp extends JFrame {   
@@ -88,8 +89,21 @@ public class MainApp extends JFrame {
               break;
 
           case "Alertas":
-              NotificacionWindow.mostrarAlertasParaUsuarioActual();//puesto por liz
-              break;
+              String rol = Session.getCurrentUser().getRole();
+              List<model.Alert> todas = service.AlertService.getAllAlerts();
+              List<String> mensajes = new ArrayList<>();
+
+             for (model.Alert alerta : todas) {
+                if (alerta.getDestinatarios().contains(rol)) {
+                mensajes.add(alerta.getMensaje());
+                }
+             }
+
+            contentPanel.removeAll();
+            contentPanel.add(new AlertasProfesor(mensajes), BorderLayout.CENTER);
+            contentPanel.revalidate();
+            contentPanel.repaint();
+            break;
 
           case "Horario":
               if ("PROFESOR".equals(Session.getCurrentUser().getRole())) {
