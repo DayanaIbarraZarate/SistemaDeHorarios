@@ -7,6 +7,9 @@ import java.awt.*;
 //import java.awt.event.*;
 
 public class HorarioAdmin extends JFrame {
+ //liz 
+ private JTable table;
+private DefaultTableModel model;
 
     public HorarioAdmin() {
         setTitle("Horario del Administrador");
@@ -41,6 +44,20 @@ public class HorarioAdmin extends JFrame {
             new LoginWindow();
             JOptionPane.showMessageDialog(null, "Volviendo al login...");
         });
+        //liz puso estas 2 lineas
+        
+         notificar.addActionListener(e -> new NotificacionWindow());
+        addMateria.addActionListener(e -> {
+    FormularioAgregarMateria form = new FormularioAgregarMateria();
+    form.addWindowListener(new java.awt.event.WindowAdapter() {
+        @Override
+        public void windowClosed(java.awt.event.WindowEvent e) {
+            actualizarTabla(); // Recargar la tabla desde JSON al cerrar el formulario
+        }
+    });
+});
+
+
 
         // Agregar botones
         panelButtons.add(addMateria);
@@ -63,7 +80,10 @@ public class HorarioAdmin extends JFrame {
                 {"20:15-21:45", "", "", "", "", "", ""}
         };
 
-        JTable table = new JTable(new DefaultTableModel(data, columnNames));
+        //liz JTable table = new JTable(new DefaultTableModel(data, columnNames));
+        model = new DefaultTableModel(data, columnNames);
+        table = new JTable(model);
+
         table.setRowHeight(40);
         table.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 14));
         table.setFont(new Font("Segoe UI", Font.PLAIN, 13));
@@ -77,9 +97,43 @@ public class HorarioAdmin extends JFrame {
         panelCentro.setBorder(BorderFactory.createLineBorder(Color.GRAY, 2, true));
         panelCentro.add(scrollPane, BorderLayout.CENTER);
         add(panelCentro, BorderLayout.CENTER);
-
+        actualizarTabla(); // Cargar datos del JSON al iniciar *añadido por liz
         setVisible(true);
     }
+private void actualizarTabla() {
+    // Limpiar todas las celdas excepto la columna de hora
+    for (int i = 0; i < model.getRowCount(); i++) {
+        for (int j = 1; j < model.getColumnCount(); j++) {
+            model.setValueAt("", i, j);
+        }
+    }
+
+    java.util.List<model.Schedule> lista = service.ScheduleService.getAllSchedules();
+    for (model.Schedule s : lista) {
+        int col = switch (s.dia.toUpperCase()) {
+            case "LUNES" -> 1;
+            case "MARTES" -> 2;
+            case "MIÉRCOLES" -> 3;
+            case "JUEVES" -> 4;
+            case "VIERNES" -> 5;
+            case "SÁBADO" -> 6;
+            default -> -1;
+        };
+        if (col == -1) continue;
+
+        String rango = s.horaInicio + "-" + s.horaFin;
+        for (int row = 0; row < model.getRowCount(); row++) {
+            if (model.getValueAt(row, 0).equals(rango)) {
+                String texto = s.materia;
+                if (s.profesor != null && !s.profesor.isEmpty()) {
+                    texto += " (" + s.profesor + ")";
+                }
+                model.setValueAt(texto, row, col);
+                break;
+            }
+        }
+    }
+}
 
     
 }

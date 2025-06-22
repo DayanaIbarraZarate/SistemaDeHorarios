@@ -88,7 +88,7 @@ public class MainApp extends JFrame {
               break;
 
           case "Alertas":
-              JOptionPane.showMessageDialog(this, "Pantalla de Alertas (en construcción)");
+              NotificacionWindow.mostrarAlertasParaUsuarioActual();//puesto por liz
               break;
 
           case "Horario":
