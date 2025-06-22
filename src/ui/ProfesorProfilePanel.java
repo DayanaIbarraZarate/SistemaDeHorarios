@@ -2,97 +2,114 @@ package ui;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import session.Session;
+import model.User;
+import service.AuthService;
 
 public class ProfesorProfilePanel extends JPanel {
 
-    //Color de fondo
-    private final Color backgroundColor = new Color(230, 245, 255); // Celeste pastel
+    private JTextField nombreField;
+    private JTextField apellidoField;
+    private JTextField ciudadField;
+    private JTextField correoField;
+    private JComboBox<String> timezoneCombo;
+
+    private User currentUser;
 
     public ProfesorProfilePanel() {
-        setOpaque(true);
-        setLayout(new BorderLayout()); // Usamos BorderLayout como base
+        currentUser = Session.getCurrentUser();
 
-        // Panel vertical para los campos (centrado)
-        JPanel content = new JPanel();
-        content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));
-        content.setOpaque(false); // Para mantener el fondo personalizado
-        content.setBorder(BorderFactory.createEmptyBorder(30, 80, 30, 80)); // Márgenes
+        setLayout(new GridBagLayout());
+        setBackground(new Color(220, 240, 255)); // Celeste claro
 
-        //  Info superior
-        JLabel infoLabel = new JLabel("<html><b>Joel Pizarro</b><br>Joel@gmail.com</html>");
-        infoLabel.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-        infoLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        content.add(infoLabel);
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(8, 8, 8, 8);
+        gbc.anchor = GridBagConstraints.WEST;
 
-        content.add(Box.createVerticalStrut(10)); // Espacio
+        // Componentes
+        JLabel nombreLabel = new JLabel("Nombre:");
+        nombreField = new JTextField(20);
+        JLabel apellidoLabel = new JLabel("Apellido:");
+        apellidoField = new JTextField(20);
+        JLabel ciudadLabel = new JLabel("Ciudad:");
+        ciudadField = new JTextField(20);
+        JLabel correoLabel = new JLabel("Correo:");
+        correoField = new JTextField(20);
+        JLabel timezoneLabel = new JLabel("Zona Horaria:");
+        timezoneCombo = new JComboBox<>(java.util.TimeZone.getAvailableIDs());
 
-        //  Botón Editar
-        JButton editButton = styledButton("Editar", new Color(128, 255, 255));
-        editButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        content.add(editButton);
+        // Datos actuales
+        nombreField.setText(currentUser.getNombre() != null ? currentUser.getNombre() : "");
+        apellidoField.setText(currentUser.getApellido() != null ? currentUser.getApellido() : "");
+        ciudadField.setText(currentUser.getCiudad() != null ? currentUser.getCiudad() : "");
+        correoField.setText(currentUser.getCorreo() != null ? currentUser.getCorreo() : "");
+        timezoneCombo.setSelectedItem(currentUser.getTimezone() != null ? currentUser.getTimezone() : java.util.TimeZone.getDefault().getID());
 
-        content.add(Box.createVerticalStrut(20)); // Espacio
+        // Añadir a layout
+        int fila = 0;
+        gbc.gridx = 0; gbc.gridy = fila;
+        add(nombreLabel, gbc); gbc.gridx = 1;
+        add(nombreField, gbc);
 
-        //Campos de texto
-        content.add(styledTextField("Nombre"));
-        content.add(Box.createVerticalStrut(10));
+        gbc.gridx = 0; gbc.gridy = ++fila;
+        add(apellidoLabel, gbc); gbc.gridx = 1;
+        add(apellidoField, gbc);
 
-        content.add(styledTextField("Apellido"));
-        content.add(Box.createVerticalStrut(10));
+        gbc.gridx = 0; gbc.gridy = ++fila;
+        add(ciudadLabel, gbc); gbc.gridx = 1;
+        add(ciudadField, gbc);
 
-        content.add(styledTextField("País"));
-        content.add(Box.createVerticalStrut(10));
+        gbc.gridx = 0; gbc.gridy = ++fila;
+        add(correoLabel, gbc); gbc.gridx = 1;
+        add(correoField, gbc);
 
-        content.add(styledTextField("Correo electrónico"));
-        content.add(Box.createVerticalStrut(10));
+        gbc.gridx = 0; gbc.gridy = ++fila;
+        add(timezoneLabel, gbc); gbc.gridx = 1;
+        add(timezoneCombo, gbc);
 
-        content.add(styledTextField("Zona Horaria"));
-        content.add(Box.createVerticalStrut(20));
+        // Botones
+        JPanel buttonsPanel = new JPanel();
+        buttonsPanel.setBackground(getBackground());
+        JButton btnGuardar = new JButton("Guardar");
+        JButton btnLimpiar = new JButton("Limpiar");
 
-        //  Botón "Agregar correo"
-        JButton addEmailButton = styledButton("+ Agregar correo alternativo", new Color(255, 255, 204));
-        content.add(addEmailButton);
+        btnGuardar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                guardarCambios();
+            }
+        });
 
-        content.add(Box.createVerticalStrut(20));
+        btnLimpiar.addActionListener(e -> limpiarCampos());
 
-        //  Botón Guardar
-        JButton botonGuardar = styledButton("Guardar Cambios", new Color(100, 200, 200));
-        botonGuardar.setAlignmentX(Component.CENTER_ALIGNMENT);
-        content.add(botonGuardar);
+        buttonsPanel.add(btnGuardar);
+        buttonsPanel.add(btnLimpiar);
 
-        // Agregar todo al panel principal (centrado)
-        add(content, BorderLayout.CENTER);
+        gbc.gridx = 0; gbc.gridy = ++fila;
+        gbc.gridwidth = 2;
+        gbc.anchor = GridBagConstraints.CENTER;
+        add(buttonsPanel, gbc);
     }
 
-    //  Personaliza el fondo del panel
-    
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        setBackground(backgroundColor);
+    private void guardarCambios() {
+        currentUser.setNombre(nombreField.getText().trim());
+        currentUser.setApellido(apellidoField.getText().trim());
+        currentUser.setCiudad(ciudadField.getText().trim());
+        currentUser.setCorreo(correoField.getText().trim());
+        currentUser.setTimezone((String) timezoneCombo.getSelectedItem());
 
-        Graphics2D g2d = (Graphics2D) g.create();
-        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g2d.dispose();
+        AuthService.updateUser(currentUser);
+        JOptionPane.showMessageDialog(this, "Datos guardados correctamente.");
     }
 
-    //texto estilizado
-    private static JTextField styledTextField(String placeholder) {
-        JTextField field = new JTextField();
-        field.setText(placeholder);
-        field.setFont(new Font("Segoe UI", Font.PLAIN, 13));
-        field.setBackground(new Color(255, 230, 230)); // Rosa claro
-        field.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1));
-        return field;
-    }
-
-    // Botón estilizado
-    private static JButton styledButton(String text, Color bgColor) {
-        JButton button = new JButton(text);
-        button.setFocusPainted(false);
-        button.setBackground(bgColor);
-        button.setForeground(Color.BLACK);
-        button.setFont(new Font("Segoe UI", Font.BOLD, 12));
-        button.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
-        return button;
+    private void limpiarCampos() {
+        nombreField.setText("");
+        apellidoField.setText("");
+        ciudadField.setText("");
+        correoField.setText("");
+        timezoneCombo.setSelectedItem(java.util.TimeZone.getDefault().getID());
     }
 }

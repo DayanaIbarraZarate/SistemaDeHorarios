@@ -6,6 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 //import ui.ProfesorSchedulePanel; // D importar horario 
+import ui.EstudianteSchdulePanel;
 
 
 public class MainApp extends JFrame {
@@ -100,8 +101,13 @@ public class MainApp extends JFrame {
                     contentPanel.add(new ProfesorSchedulePanel(), BorderLayout.CENTER);
                     contentPanel.revalidate();
                     contentPanel.repaint();
+                } else if ("ESTUDIANTE".equals(Session.getCurrentUser().getRole())) {
+                    contentPanel.removeAll();
+                    contentPanel.add(new EstudianteSchdulePanel(), BorderLayout.CENTER);
+                    contentPanel.revalidate();
+                    contentPanel.repaint();
                 } else {
-                    JOptionPane.showMessageDialog(this, "Pantalla de Horario (en construcción)");
+                    JOptionPane.showMessageDialog(this, "No hay horario configurado para tu rol.");
                 }
                 break;
         

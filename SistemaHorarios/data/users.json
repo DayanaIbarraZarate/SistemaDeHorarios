@@ -9,7 +9,12 @@
     "id": "8af9bbf6-9318-4a52-a181-2b04e704679e",
     "username": "prof1",
     "password": "prof123",
-    "role": "PROFESOR"
+    "role": "PROFESOR",
+    "nombre": "roberto",
+    "apellido": "Martines",
+    "ciudad": "La Paz",
+    "correo": "kdm",
+    "timezone": "America/La_Paz"
   },
   {
     "id": "5176bd4e-4a65-4f6d-8f0c-30d8d978f676",

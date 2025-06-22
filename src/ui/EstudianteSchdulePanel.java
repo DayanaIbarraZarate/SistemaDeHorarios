@@ -1,3 +1,4 @@
+
 package ui;
 
 import javax.swing.*;
@@ -10,26 +11,23 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProfesorSchedulePanel extends JPanel {
+public class EstudianteSchdulePanel extends JPanel {
 
     private JTable scheduleTable;
-    private final Color backgroundColor = new Color(230, 245, 255); // Celeste pastel
+    private final Color backgroundColor = new Color(255, 245, 235); // Naranja pastel suave
 
-    public ProfesorSchedulePanel() {
-        // Parte visual del fondo
+    public EstudianteSchdulePanel() {
         setOpaque(true);
         setLayout(new BorderLayout());
 
-        //Título visual
-        JLabel titulo = new JLabel("Horario", SwingConstants.CENTER);
+        JLabel titulo = new JLabel("Horario Estudiantil", SwingConstants.CENTER);
         titulo.setFont(new Font("Serif", Font.BOLD, 24));
         titulo.setForeground(new Color(30, 30, 30));
         titulo.setBorder(BorderFactory.createEmptyBorder(20, 10, 10, 10));
         add(titulo, BorderLayout.NORTH);
 
-        //  tabla
         String[] columnNames = {"Hora", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"};
-        String[][] data = generarFilasHorario();
+        String[][] data = generarFilasHorarioEstudiante();
 
         DefaultTableModel model = new DefaultTableModel(data, columnNames) {
             public boolean isCellEditable(int row, int column) {
@@ -46,13 +44,12 @@ public class ProfesorSchedulePanel extends JPanel {
         scheduleTable.setBackground(new Color(0, 0, 0, 0));
         scheduleTable.setFillsViewportHeight(true);
 
-        // Estilo de encabezados
         JTableHeader header = scheduleTable.getTableHeader();
         DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer() {
             public Component getTableCellRendererComponent(JTable table, Object value,
                                                            boolean isSelected, boolean hasFocus, int row, int column) {
                 JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-                label.setBackground(new Color(190, 220, 250));
+                label.setBackground(new Color(255, 210, 180));
                 label.setForeground(new Color(40, 40, 40));
                 label.setFont(new Font("Serif", Font.BOLD, 14));
                 label.setHorizontalAlignment(SwingConstants.CENTER);
@@ -62,10 +59,9 @@ public class ProfesorSchedulePanel extends JPanel {
         };
         for (int i = 0; i < scheduleTable.getColumnCount(); i++) {
             scheduleTable.getColumnModel().getColumn(i).setHeaderRenderer(headerRenderer);
-            scheduleTable.getColumnModel().getColumn(i).setCellRenderer(getRoundedCellRenderer()); // Redondeado
+            scheduleTable.getColumnModel().getColumn(i).setCellRenderer(getRoundedCellRenderer());
         }
 
-        //  Scroll con fondo transparente
         JScrollPane scrollPane = new JScrollPane(scheduleTable);
         scrollPane.setBorder(BorderFactory.createEmptyBorder(20, 30, 20, 30));
         scrollPane.setOpaque(false);
@@ -74,29 +70,24 @@ public class ProfesorSchedulePanel extends JPanel {
         add(scrollPane, BorderLayout.CENTER);
     }
 
-    //  Genera las filas del horario
-   //  Genera las filas del horario con bloques desde 6:45 hasta 21:45
-private String[][] generarFilasHorario() {
-    List<String[]> rows = new ArrayList<>();
-    LocalTime horaInicio = LocalTime.of(6, 45);
-    LocalTime horaFin = LocalTime.of(21, 45); // 9:45 PM
+    private String[][] generarFilasHorarioEstudiante() {
+        List<String[]> rows = new ArrayList<>();
+        LocalTime horaInicio = LocalTime.of(6, 45);
+        LocalTime horaFin = LocalTime.of(21, 45);
 
-    while (horaInicio.isBefore(horaFin)) {
-        LocalTime siguienteHora = horaInicio.plusMinutes(90);
-        String rango = String.format("%02d:%02d - %02d:%02d",
-                horaInicio.getHour(), horaInicio.getMinute(),
-                siguienteHora.getHour(), siguienteHora.getMinute());
-        rows.add(new String[]{rango, "", "", "", "", "", ""});
-        horaInicio = siguienteHora;
+        while (horaInicio.isBefore(horaFin)) {
+            LocalTime siguienteHora = horaInicio.plusMinutes(90);
+            String rango = horaInicio + " - " + siguienteHora;
+            rows.add(new String[]{rango, "", "", "", "", "", ""});
+            horaInicio = siguienteHora;
+        }
+
+        return rows.toArray(new String[0][0]);
     }
-    return rows.toArray(new String[0][0]);
-}
 
-
-    // Renderizador de celdas redondeadas (copiado desde visualPanel)
     private TableCellRenderer getRoundedCellRenderer() {
         return new DefaultTableCellRenderer() {
-                public Component getTableCellRendererComponent(JTable table, Object value,
+            public Component getTableCellRendererComponent(JTable table, Object value,
                                                            boolean isSelected, boolean hasFocus, int row, int column) {
                 JLabel cell = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
                 cell.setOpaque(true);
@@ -111,28 +102,6 @@ private String[][] generarFilasHorario() {
         };
     }
 
-    // Utilidades opcionales si necesitas crear botones o campos en el futuro
-    public static JTextField styledTextField(String placeholder) {
-        JTextField field = new JTextField();
-        field.setText(placeholder);
-        field.setFont(new Font("Segoe UI", Font.PLAIN, 13));
-        field.setBackground(new Color(255, 230, 230));
-        field.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1));
-        return field;
-    }
-
-    public static JButton styledButton(String text, Color bgColor) {
-        JButton button = new JButton(text);
-        button.setFocusPainted(false);
-        button.setBackground(bgColor);
-        button.setForeground(Color.BLACK);
-        button.setFont(new Font("Segoe UI", Font.BOLD, 12));
-        button.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
-        return button;
-    }
-
-    // Pinta el fondo (desde visualPanel)
-   
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         setBackground(backgroundColor);
