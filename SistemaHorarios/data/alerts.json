@@ -1,0 +1,60 @@
+[
+  {
+    "id": "11855ddb-8a18-4c21-bfa1-37e3dde1758c",
+    "message": "hola",
+    "recipients": [
+      "ESTUDIANTE"
+    ],
+    "date": "jun 21, 2025"
+  },
+  {
+    "id": "d91e7b2e-9321-483d-a7a2-b715481649d8",
+    "message": "hola deyna",
+    "recipients": [
+      "ESTUDIANTE"
+    ],
+    "date": "jun 21, 2025"
+  },
+  {
+    "id": "01757556-0f08-48a7-9d40-ff0dac3485ee",
+    "message": "buenas noches tienes tarea",
+    "recipients": [
+      "PROFESOR"
+    ],
+    "date": "jun 21, 2025"
+  },
+  {
+    "id": "cd05e200-6348-44a9-8fad-28985e6e20db",
+    "message": "mensaje de prueba",
+    "recipients": [
+      "Profesores",
+      "Estudiantes"
+    ],
+    "date": "jun 25, 2025"
+  },
+  {
+    "id": "5b8f2867-8f5a-4037-a5c3-c46313d8fb38",
+    "message": "mensaje a estudiantes",
+    "recipients": [
+      "Estudiantes"
+    ],
+    "date": "jun 25, 2025"
+  },
+  {
+    "id": "d9b992b8-ecd0-41db-8eb8-216273df49b2",
+    "message": "buenos dias",
+    "recipients": [
+      "Profesores"
+    ],
+    "date": "jun 25, 2025"
+  },
+  {
+    "id": "990dd976-9aad-4f7f-bd55-d6a1f644a669",
+    "message": "buenos dias a todos",
+    "recipients": [
+      "PROFESOR",
+      "ESTUDIANTE"
+    ],
+    "date": "jun 25, 2025"
+  }
+]

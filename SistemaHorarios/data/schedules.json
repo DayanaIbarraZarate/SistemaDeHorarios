@@ -1,0 +1,16 @@
+[
+  {
+    "id": "8601a15c-7843-4143-89cb-04782451f5c4",
+    "dia": "MIÉRCOLES",
+    "horaInicio": "08:15",
+    "horaFin": "09:45",
+    "materia": "calculo1"
+  },
+  {
+    "id": "967cefa2-56f4-4983-95b8-64af3886379f",
+    "dia": "VIERNES",
+    "horaInicio": "14:15",
+    "horaFin": "15:45",
+    "materia": "fisica"
+  }
+]

@@ -8,6 +8,7 @@ public class Alert {
     public String message;
     public List<String> recipients;
     public Date date;
+    public Alert() {}
 
     public Alert(String id, String message, List<String> recipients, Date date) {
         this.id = id;

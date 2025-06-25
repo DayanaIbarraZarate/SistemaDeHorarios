@@ -87,34 +87,25 @@ public class MainApp extends JFrame {
                   JOptionPane.showMessageDialog(this, "Pantalla de Perfil para " + Session.getCurrentUser().getRole());
               }
               break;
-
+//liz puso este codigo
           case "Alertas":
-              String rol = Session.getCurrentUser().getRole();
-              List<model.Alert> todas = service.AlertService.getAllAlerts();
-              List<String> mensajes = new ArrayList<>();
+              contentPanel.removeAll();
+              contentPanel.add(new AlertPanel(), BorderLayout.CENTER);
+               contentPanel.revalidate();
+               contentPanel.repaint();
+               break;
+//liz puso este codigo
+         case "Horario":
 
-             for (model.Alert alerta : todas) {
-                if (alerta.getDestinatarios().contains(rol)) {
-                mensajes.add(alerta.getMensaje());
-                }
-             }
+    contentPanel.removeAll();
 
-            contentPanel.removeAll();
-            contentPanel.add(new AlertasProfesor(mensajes), BorderLayout.CENTER);
-            contentPanel.revalidate();
-            contentPanel.repaint();
-            break;
+    contentPanel.add(new HorarioViewerPanel(), BorderLayout.CENTER);
 
-          case "Horario":
-              if ("PROFESOR".equals(Session.getCurrentUser().getRole())) {
-                  contentPanel.removeAll();
-                  contentPanel.add(new ProfesorSchedulePanel(), BorderLayout.CENTER);
-                  contentPanel.revalidate();
-                  contentPanel.repaint();
-              } else {
-                  JOptionPane.showMessageDialog(this, "Pantalla de Horario (en construcción)");
-              }
-              break;
+    contentPanel.revalidate();
+
+    contentPanel.repaint();
+
+    break;
 
           case "Cerrar Sesión":
               Session.logout();
@@ -124,12 +115,12 @@ public class MainApp extends JFrame {
         }
     }
     
-    private void showMessage(String msg) {
+    /*private void showMessage(String msg) {
         contentPanel.removeAll();
         JLabel label = new JLabel("<html><div style='text-align:center;'><h2>" + msg + "</h2></div></html>", SwingConstants.CENTER);
         label.setFont(new Font("Segoe UI", Font.PLAIN, 16));
         contentPanel.add(label, BorderLayout.CENTER);
         contentPanel.revalidate();
         contentPanel.repaint();
-    }
+    }*/
 }

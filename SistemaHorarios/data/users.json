@@ -22,5 +22,27 @@
     "username": "deyna",
     "password": "12345",
     "role": "ESTUDIANTE"
+  },
+  {
+    "id": "16468109-617f-41f4-a3e8-080edd8f682c",
+    "username": "liz",
+    "password": "1234",
+    "role": "ESTUDIANTE",
+    "nombre": "liz",
+    "apellido": "",
+    "ciudad": "",
+    "correo": "",
+    "timezone": "America/La_Paz"
+  },
+  {
+    "id": "d0a1e032-a71d-4790-9519-9ed70850cb24",
+    "username": "liz1",
+    "password": "1234",
+    "role": "ESTUDIANTE",
+    "nombre": "liz1",
+    "apellido": "",
+    "ciudad": "",
+    "correo": "",
+    "timezone": "America/La_Paz"
   }
 ]
