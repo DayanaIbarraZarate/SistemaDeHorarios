@@ -10,6 +10,9 @@ import ui.EstudianteSchdulePanel;
 
 
 public class MainApp extends JFrame {
+<<<<<<<<< Temporary merge branch 1
+    private JPanel contentPanel;
+=========
      
     private JPanel contentPanel; // D Panel central donde cambia el contenido
 
@@ -62,7 +65,6 @@ public class MainApp extends JFrame {
             sidebar.add(button);
         }
 
-        // Panel central
         contentPanel = new JPanel(new BorderLayout());
         contentPanel.setBackground(Color.WHITE);
         JLabel welcomeLabel = new JLabel("<html><div style='text-align:center;'><h1>¡Bienvenid@, " 
@@ -71,55 +73,72 @@ public class MainApp extends JFrame {
         contentPanel.add(welcomeLabel, BorderLayout.CENTER);
 
         // Layout
+=========
+        
+        // Área de contenido
+        // JPanel contentPanel = new JPanel(new BorderLayout());
+        contentPanel = new JPanel(new BorderLayout());  // D
+
+        contentPanel.add(new JLabel("<html><h1>Bienvenido, " + displayName + "!</h1><p>Seleccione una opción del menú</p></html>"),
+            BorderLayout.CENTER);
+        
+        // Layout principal
+>>>>>>>>> Temporary merge branch 2
         add(sidebar, BorderLayout.WEST);
         add(contentPanel, BorderLayout.CENTER);
         setVisible(true);
     }
 
     private void handleMenuClick(String menuItem) {
+<<<<<<<<< Temporary merge branch 1
+    switch (menuItem) {
+        case "Perfil":
+    // Abrir ventana perfil solo si es estudiante
+            if ("ESTUDIANTE".equals(Session.getCurrentUser().getRole())) {
+               new PerfilEstudiante();
+            } else {
+        JOptionPane.showMessageDialog(this, "Pantalla de Perfil para " + Session.getCurrentUser().getRole());
+            }
+            break;
+
+        case "Alertas":
+            showMessage("Pantalla de Alertas (en construcción)");
+            break;
+        case "Horario":
+            showMessage("Pantalla de Horario (en construcción)");
+            break;
+        case "Cerrar Sesión":
+            Session.logout();
+            new LoginWindow();
+            dispose();
+            break;
+=========
         switch (menuItem) {
             case "Perfil":
-                if ("ESTUDIANTE".equals(Session.getCurrentUser().getRole())) {
-                    new PerfilEstudiante();  // Ventana especial para estudiantes
-                } else if ("PROFESOR".equals(Session.getCurrentUser().getRole())) {
-                    contentPanel.removeAll();
-                    contentPanel.add(new ProfesorProfilePanel(), BorderLayout.CENTER);
-                    contentPanel.revalidate();
-                    contentPanel.repaint();
-                } else {
-                    JOptionPane.showMessageDialog(this, "Pantalla de Perfil para " + Session.getCurrentUser().getRole());
-                }
+            contentPanel.removeAll();
+            contentPanel.add(new ProfesorProfilePanel(), BorderLayout.CENTER);
+            contentPanel.revalidate();
+            contentPanel.repaint();
                 break;
-        
             case "Alertas":
-                JOptionPane.showMessageDialog(this, "Pantalla de Alertas (en construcción)");
+                JOptionPane.showMessageDialog(this, "Pantalla de Alertas");
                 break;
-        
-            case "Horario":
-                if ("PROFESOR".equals(Session.getCurrentUser().getRole())) {
-                    contentPanel.removeAll();
-                    contentPanel.add(new ProfesorSchedulePanel(), BorderLayout.CENTER);
-                    contentPanel.revalidate();
-                    contentPanel.repaint();
-                } else if ("ESTUDIANTE".equals(Session.getCurrentUser().getRole())) {
-                    contentPanel.removeAll();
-                    contentPanel.add(new EstudianteSchdulePanel(), BorderLayout.CENTER);
-                    contentPanel.revalidate();
-                    contentPanel.repaint();
-                } else {
-                    JOptionPane.showMessageDialog(this, "No hay horario configurado para tu rol.");
-                }
-                break;
-        
+            case "Horario":  //D 
+                contentPanel.removeAll();
+                contentPanel.add(new ProfesorSchedulePanel(), BorderLayout.CENTER);
+                contentPanel.revalidate();
+                contentPanel.repaint();
+            break;
+            
             case "Cerrar Sesión":
                 Session.logout();
                 new LoginWindow();
                 dispose();
                 break;
         }
-        
+>>>>>>>>> Temporary merge branch 2
     }
-
+}
  
     
     
