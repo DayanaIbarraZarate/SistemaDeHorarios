@@ -91,9 +91,13 @@ public class PerfilEstudiante extends JFrame {
         JButton btnCancelar = new JButton("Cancelar");
 
         btnGuardar.addActionListener(new ActionListener() {
-            @Override
+            
             public void actionPerformed(ActionEvent e) {
-                guardarCambios();
+                boolean validarCampos = validarCampos();
+                if (validarCampos){
+                    guardarCambios();
+                }
+                //ardarCambios();
             }
         });
 
@@ -123,4 +127,32 @@ public class PerfilEstudiante extends JFrame {
         JOptionPane.showMessageDialog(this, "Datos guardados correctamente.");
         dispose();
     }
+    private boolean validarCampos() {
+        if (nombreField.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "El campo 'Nombre' no puede estar vacío.");
+            return false;
+        }
+        if (apellidoField.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "El campo 'Apellido' no puede estar vacío.");
+            return false;
+        }
+        if (ciudadField.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "El campo 'Ciudad' no puede estar vacío.");
+            return false;
+        }
+        if (correoField.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "El campo 'Correo' no puede estar vacío.");
+            return false;
+        }
+    
+        String correo = correoField.getText().trim();
+        // Expresión regular básica para validar email
+        if (!correo.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$")) {
+            JOptionPane.showMessageDialog(this, "El correo ingresado no tiene un formato válido.");
+            return false;
+        }
+    
+        return true;
+    }
+    
 }

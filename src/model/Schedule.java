@@ -6,15 +6,17 @@ public class Schedule {
     public String horaInicio;
     public String horaFin;
     public String materia;
-    public String profesor;
 
-    public Schedule(String id, String dia, String horaInicio, String horaFin, String materia, String profesor) {
+    public String tipo; // "profesor" o "estudiante"
+
+    public Schedule(String id, String dia, String horaInicio, String horaFin, String materia,  String tipo) {
         this.id = id;
         this.dia = dia;
         this.horaInicio = horaInicio;
         this.horaFin = horaFin;
         this.materia = materia;
-        this.profesor = profesor;
+     
+        this.tipo = tipo;//liz
     }
 
 

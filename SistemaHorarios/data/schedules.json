@@ -1,0 +1,82 @@
+[
+  {
+    "id": "1605f445-4ce7-498a-b90f-5ae725db7ce1",
+    "dia": "LUNES",
+    "horaInicio": "11:15",
+    "horaFin": "12:45",
+    "materia": "sistemas",
+    "tipo": "estudiante"
+  },
+  {
+    "id": "bb333805-4afc-4647-87d2-0e53e3ca9067",
+    "dia": "MARTES",
+    "horaInicio": "06:45",
+    "horaFin": "08:15",
+    "materia": "sistemas2",
+    "tipo": "profesor"
+  },
+  {
+    "id": "68ba3488-1c41-4f22-9f39-a121cdf870a8",
+    "dia": "LUNES",
+    "horaInicio": "06:45",
+    "horaFin": "08:15",
+    "materia": "sisInfo1",
+    "tipo": "estudiante"
+  },
+  {
+    "id": "82f5f7b0-038c-4e92-be21-de3e36c5eb67",
+    "dia": "VIERNES",
+    "horaInicio": "09:45",
+    "horaFin": "11:15",
+    "materia": "estadistica2",
+    "tipo": "profesor"
+  },
+  {
+    "id": "9c40aaa2-ace2-47b7-bd64-50db15f27a93",
+    "dia": "JUEVES",
+    "horaInicio": "14:15",
+    "horaFin": "15:45",
+    "materia": "historia",
+    "tipo": "profesor"
+  },
+  {
+    "id": "f1672c62-dbe3-419b-b54c-85e677c8548a",
+    "dia": "VIERNES",
+    "horaInicio": "06:45",
+    "horaFin": "08:15",
+    "materia": "lenguaje",
+    "tipo": "profesor"
+  },
+  {
+    "id": "4bc7f4e8-43ac-4754-93a1-89f8fbf45fb3",
+    "dia": "MIÉRCOLES",
+    "horaInicio": "06:45",
+    "horaFin": "08:15",
+    "materia": "literatura",
+    "tipo": "profesor"
+  },
+  {
+    "id": "d9d7b639-3fa8-4f3e-9598-2824ef53eb44",
+    "dia": "SÁBADO",
+    "horaInicio": "06:45",
+    "horaFin": "08:15",
+    "materia": "dfvgbr",
+    "tipo": "profesor"
+  },
+  {
+    "id": "e744bb87-d301-4703-b6bd-b4cebbf8976f",
+    "dia": "JUEVES",
+    "horaInicio": "08:15",
+    "horaFin": "09:45",
+    "materia": "lizliz",
+    "tipo": "profesor"
+  },
+  {
+    "id": "8a0858db-0f32-4604-b2c7-24d4773f8d07",
+    "dia": "MIÉRCOLES",
+    "horaInicio": "15:45",
+    "horaFin": "17:15",
+    "materia": "vacalola",
+    "tipo": "estudiante"
+  }
+]

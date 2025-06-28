@@ -105,16 +105,21 @@ public class MainApp extends JFrame {
             contentPanel.repaint();
             break;
 
-          case "Horario":
-              if ("PROFESOR".equals(Session.getCurrentUser().getRole())) {
-                  contentPanel.removeAll();
-                  contentPanel.add(new ProfesorSchedulePanel(), BorderLayout.CENTER);
-                  contentPanel.revalidate();
-                  contentPanel.repaint();
-              } else {
-                  JOptionPane.showMessageDialog(this, "Pantalla de Horario (en construcción)");
-              }
-              break;
+         case "Horario":
+            if ("PROFESOR".equals(Session.getCurrentUser().getRole())) {
+                contentPanel.removeAll();
+                contentPanel.add(new ProfesorSchedulePanel(), BorderLayout.CENTER);
+                contentPanel.revalidate();
+                contentPanel.repaint();
+            } else if ("ESTUDIANTE".equals(Session.getCurrentUser().getRole())) {
+                contentPanel.removeAll();
+                contentPanel.add(new EstudianteSchdulePanel(), BorderLayout.CENTER);
+                contentPanel.revalidate();
+                contentPanel.repaint();
+            } else {
+                JOptionPane.showMessageDialog(this, "No hay horario configurado para tu rol.");
+            }
+            break;
 
           case "Cerrar Sesión":
               Session.logout();

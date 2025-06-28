@@ -12,14 +12,18 @@ public class ScheduleService {
         return JsonDB.load(SCHEDULES_JSON, Schedule.class);
     }
 
-    public static void addSchedule(String dia, String horaInicio, String horaFin, String materia) {
+    public static void addSchedule(String dia, String horaInicio, String horaFin, String materia, String tipo) {
+    
+       
         List<Schedule> schedules = getAllSchedules();
         schedules.add(new Schedule(
             UUID.randomUUID().toString(),
             dia,
             horaInicio,
             horaFin,
-            materia
+            materia,
+            
+            tipo // 👈 ahora se pasa el tipo
         ));
         JsonDB.save(SCHEDULES_JSON, schedules);
     }

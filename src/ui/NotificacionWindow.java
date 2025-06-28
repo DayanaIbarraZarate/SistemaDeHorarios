@@ -17,7 +17,7 @@ public class NotificacionWindow extends JFrame {
 
     public NotificacionWindow() {
         setTitle("Nueva Notificación");
-        setSize(350, 300);
+        setSize(550, 500);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
@@ -37,7 +37,7 @@ public class NotificacionWindow extends JFrame {
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
         JLabel tituloLabel = new JLabel("NUEVA NOTIFICACIÓN");
-        tituloLabel.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        tituloLabel.setFont(new Font("Segoe UI", Font.BOLD, 20));
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.gridwidth = 2;

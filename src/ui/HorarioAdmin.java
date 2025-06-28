@@ -7,9 +7,12 @@ import java.awt.*;
 //import java.awt.event.*;
 
 public class HorarioAdmin extends JFrame {
- //liz 
+ 
  private JTable table;
 private DefaultTableModel model;
+private FormularioAgregarMateria formMateria; // <-- Añade esta línea añadido por liz para poder cerrar las clases hijas
+private NotificacionWindow ventanaNotificacion;//puesto por liz para que se cierre las notificaciones 
+
 
     public HorarioAdmin() {
         setTitle("Horario del Administrador");
@@ -38,26 +41,47 @@ private DefaultTableModel model;
         JButton notificar = new JButton("Notificar");
         JButton cerrarSesion = new JButton("Cerrar Sesión");
 
-        // Eventos
         cerrarSesion.addActionListener(e -> {
-            dispose(); // cerrar ventana actual
-            new LoginWindow();
-            JOptionPane.showMessageDialog(null, "Volviendo al login...");
-        });
+    // Cierra FormularioAgregarMateria si está abierto
+    if (formMateria != null) {
+        formMateria.dispose();
+    }
+
+    // Cierra NotificacionWindow si está abierto
+    if (ventanaNotificacion != null) {
+        ventanaNotificacion.dispose();
+    }
+
+    dispose(); // cierra ventana principal
+    new LoginWindow();
+    JOptionPane.showMessageDialog(null, "Volviendo al login...");
+});
+
+
+
         //liz puso estas 2 lineas
         
-         notificar.addActionListener(e -> new NotificacionWindow());
-        addMateria.addActionListener(e -> {
-    FormularioAgregarMateria form = new FormularioAgregarMateria();
-    form.addWindowListener(new java.awt.event.WindowAdapter() {
+        // notificar.addActionListener(e -> new NotificacionWindow());
+notificar.addActionListener(e -> {
+    ventanaNotificacion = new NotificacionWindow();
+    ventanaNotificacion.addWindowListener(new java.awt.event.WindowAdapter() {
         @Override
         public void windowClosed(java.awt.event.WindowEvent e) {
-            actualizarTabla(); // Recargar la tabla desde JSON al cerrar el formulario
+            ventanaNotificacion = null; // limpiar referencia
         }
     });
 });
 
-
+            addMateria.addActionListener(e -> {
+    formMateria = new FormularioAgregarMateria();
+    formMateria.addWindowListener(new java.awt.event.WindowAdapter() {
+        @Override
+        public void windowClosed(java.awt.event.WindowEvent e) {
+            actualizarTabla();
+            formMateria = null; // limpiar referencia
+        }
+    });
+});
 
         // Agregar botones
         panelButtons.add(addMateria);
@@ -68,7 +92,7 @@ private DefaultTableModel model;
         //  Tabla de horario 
         String[] columnNames = {"Horario", "LUNES", "MARTES", "MIÉRCOLES", "JUEVES", "VIERNES", "SÁBADO"};
         Object[][] data = {
-                {"06:45-8:15", "", "", "", "", "", ""},
+                {"06:45-08:15", "", "", "", "", "", ""},
                 {"08:15-09:45", "", "", "", "", "", ""},
                 {"09:45-11:15", "", "", "", "", "", ""},
                 {"11:15-12:45", "", "", "", "", "", ""},
@@ -87,9 +111,41 @@ private DefaultTableModel model;
         table.setRowHeight(40);
         table.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 14));
         table.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+       //liz añadio esto 
+        table.setDefaultRenderer(Object.class, new javax.swing.table.DefaultTableCellRenderer() {
+    @Override
+    public Component getTableCellRendererComponent(JTable table, Object value,
+                                                   boolean isSelected, boolean hasFocus,
+                                                   int row, int column) {
+        Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+
+        // Columna 0 es la de horarios, no cambiar color ahí
+        if (column == 0) {
+            c.setBackground(Color.WHITE);
+            return c;
+        }
+
+        String texto = (value == null) ? "" : value.toString().toLowerCase();
+
+        if (texto.contains("prof:")) {
+            c.setBackground(new Color(200, 180, 255));  // color lila suave
+        } else if (texto.contains("est:")) {
+            c.setBackground(new Color(255, 200, 220));  // color rosado suave
+        } else {
+            c.setBackground(Color.WHITE);  // sin texto o distinto, blanco
+        }
+
+        return c;
+    }
+});
+//hasta aqui liz añadio
+
+
 
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.setBorder(BorderFactory.createEmptyBorder(15, 30, 15, 30));
+
+
 
         // Panel central redondeado
         JPanel panelCentro = new JPanel(new BorderLayout());
@@ -110,6 +166,7 @@ private void actualizarTabla() {
 
     java.util.List<model.Schedule> lista = service.ScheduleService.getAllSchedules();
     for (model.Schedule s : lista) {
+     
         int col = switch (s.dia.toUpperCase()) {
             case "LUNES" -> 1;
             case "MARTES" -> 2;
@@ -120,18 +177,31 @@ private void actualizarTabla() {
             default -> -1;
         };
         if (col == -1) continue;
+String rango = s.horaInicio + "-" + s.horaFin;
 
-        String rango = s.horaInicio + "-" + s.horaFin;
+        String tipoPrefijo = s.tipo.equalsIgnoreCase("profesor") ? "prof:" : "est:";
+
         for (int row = 0; row < model.getRowCount(); row++) {
             if (model.getValueAt(row, 0).equals(rango)) {
-                String texto = s.materia;
-                if (s.profesor != null && !s.profesor.isEmpty()) {
-                    texto += " (" + s.profesor + ")";
+                String actual = (String) model.getValueAt(row, col);
+
+                String texto = tipoPrefijo + s.materia;
+
+                if (!actual.isEmpty()) {
+                    texto = actual + ", " + texto;
                 }
+
                 model.setValueAt(texto, row, col);
                 break;
             }
         }
+    
+
+
+    
+
+        
+        
     }
 }
 
