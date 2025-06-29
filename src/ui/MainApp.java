@@ -8,10 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 //import ui.ProfesorSchedulePanel; // D importar horario 
 
-
 public class MainApp extends JFrame {   
-    private JPanel contentPanel; // D Panel central donde cambia el contenido
+    private JPanel contentPanel; // Panel central donde cambia el contenido
 
+    // Variable para controlar la ventana PerfilEstudiante abierta
+    private PerfilEstudiante perfilEstudiante;
 
     public MainApp() {
         setTitle("Sistema de Horarios - Estudiante");
@@ -37,7 +38,7 @@ public class MainApp extends JFrame {
         sidebar.setPreferredSize(new Dimension(180, getHeight()));
         sidebar.setBorder(BorderFactory.createEmptyBorder(20, 10, 20, 10));
 
-        List<String> menuList = new java.util.ArrayList<>();
+        List<String> menuList = new ArrayList<>();
         if ("ADMIN".equals(role)) {
             menuList.add("Horario");
             menuList.add("Cerrar Sesión");
@@ -74,67 +75,65 @@ public class MainApp extends JFrame {
     }
 
     private void handleMenuClick(String menuItem) {
-      switch (menuItem) {
-          case "Perfil":
-              if ("ESTUDIANTE".equals(Session.getCurrentUser().getRole())) {
-                  new PerfilEstudiante();  // Ventana especial para estudiantes
-              } else if ("PROFESOR".equals(Session.getCurrentUser().getRole())) {
-                  contentPanel.removeAll();
-                  contentPanel.add(new ProfesorProfilePanel(), BorderLayout.CENTER);
-                  contentPanel.revalidate();
-                  contentPanel.repaint();
-              } else {
-                  JOptionPane.showMessageDialog(this, "Pantalla de Perfil para " + Session.getCurrentUser().getRole());
-              }
-              break;
-
-          case "Alertas":
-              String rol = Session.getCurrentUser().getRole();
-              List<model.Alert> todas = service.AlertService.getAllAlerts();
-              List<String> mensajes = new ArrayList<>();
-
-             for (model.Alert alerta : todas) {
-                if (alerta.getDestinatarios().contains(rol)) {
-                mensajes.add(alerta.getMensaje());
+        switch (menuItem) {
+            case "Perfil":
+                if ("ESTUDIANTE".equals(Session.getCurrentUser().getRole())) {
+                    if (perfilEstudiante == null || !perfilEstudiante.isDisplayable()) {
+                        perfilEstudiante = new PerfilEstudiante();
+                    } else {
+                        perfilEstudiante.toFront();
+                        perfilEstudiante.requestFocus();
+                    }
+                } else if ("PROFESOR".equals(Session.getCurrentUser().getRole())) {
+                    contentPanel.removeAll();
+                    contentPanel.add(new ProfesorProfilePanel(), BorderLayout.CENTER);
+                    contentPanel.revalidate();
+                    contentPanel.repaint();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Pantalla de Perfil para " + Session.getCurrentUser().getRole());
                 }
-             }
+                break;
 
-            contentPanel.removeAll();
-            contentPanel.add(new AlertasProfesor(mensajes), BorderLayout.CENTER);
-            contentPanel.revalidate();
-            contentPanel.repaint();
-            break;
+            case "Alertas":
+                String rol = Session.getCurrentUser().getRole();
+                List<model.Alert> todas = service.AlertService.getAllAlerts();
+                List<String> mensajes = new ArrayList<>();
 
-         case "Horario":
-            if ("PROFESOR".equals(Session.getCurrentUser().getRole())) {
+                for (model.Alert alerta : todas) {
+                    if (alerta.getDestinatarios().contains(rol)) {
+                        mensajes.add(alerta.getMensaje());
+                    }
+                }
+
                 contentPanel.removeAll();
-                contentPanel.add(new ProfesorSchedulePanel(), BorderLayout.CENTER);
+                contentPanel.add(new AlertasProfesor(mensajes), BorderLayout.CENTER);
                 contentPanel.revalidate();
                 contentPanel.repaint();
-            } else if ("ESTUDIANTE".equals(Session.getCurrentUser().getRole())) {
-                contentPanel.removeAll();
-                contentPanel.add(new EstudianteSchdulePanel(), BorderLayout.CENTER);
-                contentPanel.revalidate();
-                contentPanel.repaint();
-            } else {
-                JOptionPane.showMessageDialog(this, "No hay horario configurado para tu rol.");
-            }
-            break;
+                break;
 
-          case "Cerrar Sesión":
-              Session.logout();
-              new LoginWindow();
-              dispose();
-              break;
+            case "Horario":
+                if ("PROFESOR".equals(Session.getCurrentUser().getRole())) {
+                    contentPanel.removeAll();
+                    contentPanel.add(new ProfesorSchedulePanel(), BorderLayout.CENTER);
+                    contentPanel.revalidate();
+                    contentPanel.repaint();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Pantalla de Horario (en construcción)");
+                }
+                break;
+
+            case "Cerrar Sesión":
+                int confirm = JOptionPane.showConfirmDialog(this, "¿Estás seguro de que deseas cerrar sesión?", "Confirmar", JOptionPane.YES_NO_OPTION);
+                if (confirm == JOptionPane.YES_OPTION) {
+                    if (perfilEstudiante != null) {
+                        perfilEstudiante.dispose();
+                        perfilEstudiante = null;
+                    }
+                    Session.logout();
+                    this.dispose();
+                    new LoginWindow().setVisible(true);
+                }
+                break;
         }
-    }
-    
-    private void showMessage(String msg) {
-        contentPanel.removeAll();
-        JLabel label = new JLabel("<html><div style='text-align:center;'><h2>" + msg + "</h2></div></html>", SwingConstants.CENTER);
-        label.setFont(new Font("Segoe UI", Font.PLAIN, 16));
-        contentPanel.add(label, BorderLayout.CENTER);
-        contentPanel.revalidate();
-        contentPanel.repaint();
     }
 }

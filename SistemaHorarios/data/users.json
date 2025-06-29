@@ -38,5 +38,27 @@
     "ciudad": "",
     "correo": "",
     "timezone": "America/La_Paz"
+  },
+  {
+    "id": "c62bc5c2-7685-42e8-8a38-283554617e26",
+    "username": "dyana",
+    "password": "1234",
+    "role": "ESTUDIANTE",
+    "nombre": "",
+    "apellido": "",
+    "ciudad": "",
+    "correo": "",
+    "timezone": "America/La_Paz"
+  },
+  {
+    "id": "13b70985-0839-45d5-aab8-c7ae2cc92a03",
+    "username": "prof",
+    "password": "1234",
+    "role": "PROFESOR",
+    "nombre": "",
+    "apellido": "",
+    "ciudad": "",
+    "correo": "",
+    "timezone": "America/La_Paz"
   }
 ]
