@@ -88,9 +88,9 @@ public class AlertasProfesor extends JPanel {
         notificacionesPanel.revalidate();
         notificacionesPanel.repaint();
 
-        // Eliminar del archivo JSON
-        String rol = Session.getCurrentUser().getRole();
-        AlertService.clearAlertsForRole(rol);
+        String usuario = Session.getCurrentUser().getUsername();
+        AlertService.clearAlertsForUser(usuario);
+
 
         JOptionPane.showMessageDialog(this, "Todas las alertas han sido eliminadas.");
     }

@@ -44,6 +44,28 @@
     "username": "dyana",
     "password": "1234",
     "role": "ESTUDIANTE",
+    "nombre": "dy",
+    "apellido": "villarroel",
+    "ciudad": "cbba",
+    "correo": "",
+    "timezone": "America/La_Paz"
+  },
+  {
+    "id": "13b70985-0839-45d5-aab8-c7ae2cc92a03",
+    "username": "prof",
+    "password": "1234",
+    "role": "PROFESOR",
+    "nombre": "",
+    "apellido": "chavez",
+    "ciudad": "",
+    "correo": "",
+    "timezone": "America/La_Paz"
+  },
+  {
+    "id": "bc3f1800-a6b7-400c-a60d-d5cc75f256f2",
+    "username": "yara",
+    "password": "1234",
+    "role": "ESTUDIANTE",
     "nombre": "",
     "apellido": "",
     "ciudad": "",
@@ -51,8 +73,8 @@
     "timezone": "America/La_Paz"
   },
   {
-    "id": "13b70985-0839-45d5-aab8-c7ae2cc92a03",
-    "username": "prof",
+    "id": "d89fca63-6490-4906-a774-e2e75d7a1766",
+    "username": "robert",
     "password": "1234",
     "role": "PROFESOR",
     "nombre": "",

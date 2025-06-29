@@ -5,9 +5,12 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.List;
+
 import service.AlertService;
+import service.UserService;
 import session.Session;
 import model.Alert;
+import model.User;
 
 public class NotificacionWindow extends JFrame {
 
@@ -16,7 +19,7 @@ public class NotificacionWindow extends JFrame {
     private JToggleButton toggleEstudiantes;
 
     public NotificacionWindow() {
-        setTitle("Nueva Notificación");
+        setTitle("Nueva Notificaci贸n");
         setSize(550, 500);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -36,7 +39,7 @@ public class NotificacionWindow extends JFrame {
         gbc.insets = new Insets(10, 10, 10, 10);
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
-        JLabel tituloLabel = new JLabel("NUEVA NOTIFICACIÓN");
+        JLabel tituloLabel = new JLabel("NUEVA NOTIFICACI脫N");
         tituloLabel.setFont(new Font("Segoe UI", Font.BOLD, 20));
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -93,42 +96,49 @@ public class NotificacionWindow extends JFrame {
         }
 
         List<String> destinatarios = new ArrayList<>();
-        if (aProfesores) destinatarios.add("PROFESOR");
-        if (aEstudiantes) destinatarios.add("ESTUDIANTE");
+
+        if (aProfesores) {
+            List<User> profesores = UserService.getUsersByRole("PROFESOR");
+            for (User u : profesores) {
+                destinatarios.add(u.getUsername());
+            }
+        }
+
+        if (aEstudiantes) {
+            List<User> estudiantes = UserService.getUsersByRole("ESTUDIANTE");
+            for (User u : estudiantes) {
+                destinatarios.add(u.getUsername());
+            }
+        }
 
         AlertService.addAlert(mensaje, destinatarios);
 
-        JOptionPane.showMessageDialog(this, "Notificación guardada y enviada correctamente.");
+        JOptionPane.showMessageDialog(this, "Notificacion guardada y enviada correctamente.");
         dispose();
     }
 
     // Mostrar notificaciones para el usuario actual
     public static void mostrarAlertasParaUsuarioActual() {
-        String rol = Session.getCurrentUser().getRole();
-        List<Alert> todas = AlertService.getAllAlerts();
-        List<String> mensajes = new ArrayList<>();
-
-        for (Alert alerta : todas) {
-            if (alerta.getDestinatarios().contains(rol)) {
-                mensajes.add(alerta.getMensaje());
-            }
-        }
+        String username = Session.getCurrentUser().getUsername();
+        List<String> mensajes = AlertService.getAlertsForUser(username);
 
         if (mensajes.isEmpty()) {
             JOptionPane.showMessageDialog(null, "No hay notificaciones para mostrar.", "Alertas", JOptionPane.INFORMATION_MESSAGE);
         } else {
-            new AlertasProfesor(mensajes); // Reutilizamos esta clase visual
+            new AlertasProfesor(mensajes);
         }
     }
 
     // Panel redondeado
     static class RoundedPanel extends JPanel {
         private int radius;
+
         public RoundedPanel(int radius) {
             this.radius = radius;
             setOpaque(false);
         }
-        @Override
+
+        
         protected void paintComponent(Graphics g) {
             Graphics2D g2 = (Graphics2D) g.create();
             g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -138,4 +148,4 @@ public class NotificacionWindow extends JFrame {
             super.paintComponent(g);
         }
     }
-} 
+}

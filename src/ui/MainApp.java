@@ -15,7 +15,13 @@ public class MainApp extends JFrame {
     private PerfilEstudiante perfilEstudiante;
 
     public MainApp() {
-        setTitle("Sistema de Horarios - Estudiante");
+        
+        if (Session.getCurrentUser().getRole().equals("PROFESOR")) {
+            setTitle("Sistema de Horarios - Profesor");
+        } else {
+            setTitle("Sistema de Horarios - Estudiante");
+        }
+        
         setSize(900, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -100,7 +106,7 @@ public class MainApp extends JFrame {
                 List<String> mensajes = new ArrayList<>();
 
                 for (model.Alert alerta : todas) {
-                    if (alerta.getDestinatarios().contains(rol)) {
+                    if (alerta.getDestinatarios().contains(Session.getCurrentUser().getUsername())) {
                         mensajes.add(alerta.getMensaje());
                     }
                 }
@@ -111,17 +117,21 @@ public class MainApp extends JFrame {
                 contentPanel.repaint();
                 break;
 
-            case "Horario":
+                case "Horario":
                 if ("PROFESOR".equals(Session.getCurrentUser().getRole())) {
                     contentPanel.removeAll();
                     contentPanel.add(new ProfesorSchedulePanel(), BorderLayout.CENTER);
                     contentPanel.revalidate();
                     contentPanel.repaint();
+                } else if ("ESTUDIANTE".equals(Session.getCurrentUser().getRole())) {
+                    contentPanel.removeAll();
+                    contentPanel.add(new EstudianteSchdulePanel(), BorderLayout.CENTER);
+                    contentPanel.revalidate();
+                    contentPanel.repaint();
                 } else {
-                    JOptionPane.showMessageDialog(this, "Pantalla de Horario (en construcción)");
+                    JOptionPane.showMessageDialog(this, "No hay horario configurado para tu rol.");
                 }
                 break;
-
             case "Cerrar Sesión":
                 int confirm = JOptionPane.showConfirmDialog(this, "¿Estás seguro de que deseas cerrar sesión?", "Confirmar", JOptionPane.YES_NO_OPTION);
                 if (confirm == JOptionPane.YES_OPTION) {

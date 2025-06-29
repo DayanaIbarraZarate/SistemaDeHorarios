@@ -1,0 +1,40 @@
+[
+  {
+    "id": "1d587113-8dbd-4cc9-90b5-dee4e9796180",
+    "message": "buen dia",
+    "recipients": [
+      "ESTUDIANTE"
+    ],
+    "date": "jun 29, 2025"
+  },
+  {
+    "id": "a93fb092-71e5-465e-b899-2a48f92e93ff",
+    "message": "mañana presentación",
+    "recipients": [
+      "deyna ",
+      "liz",
+      "dyana"
+    ],
+    "date": "jun 29, 2025"
+  },
+  {
+    "id": "30474239-e5a4-4b67-9b44-c73c0e8505a5",
+    "message": "proximo examen",
+    "recipients": [
+      "deyna ",
+      "liz",
+      "dyana",
+      "yara"
+    ],
+    "date": "jun 29, 2025"
+  },
+  {
+    "id": "7b142488-1ad3-4b59-83e7-6a406c28a2f6",
+    "message": "revicion exam",
+    "recipients": [
+      "prof",
+      "robert"
+    ],
+    "date": "jun 29, 2025"
+  }
+]

@@ -78,5 +78,13 @@
     "horaFin": "17:15",
     "materia": "vacalola",
     "tipo": "estudiante"
+  },
+  {
+    "id": "4d22f144-fe2b-4db4-86bc-180644cda459",
+    "dia": "SÁBADO",
+    "horaInicio": "06:45",
+    "horaFin": "08:15",
+    "materia": "metodos",
+    "tipo": "estudiante"
   }
 ]

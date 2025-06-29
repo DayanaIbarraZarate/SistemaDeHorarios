@@ -12,7 +12,7 @@ public class AlertService {
         return JsonDB.load(ALERTS_JSON, Alert.class);
     }
 
-    // Agregar una nueva alerta
+    // Agregar una nueva alerta (a usuarios individuales)
     public static void addAlert(String message, List<String> recipients) {
         List<Alert> alerts = getAllAlerts();
 
@@ -27,17 +27,28 @@ public class AlertService {
         JsonDB.save(ALERTS_JSON, alerts);
     }
 
-    // Eliminar alertas de un rol específico (como "PROFESOR" o "ESTUDIANTE")
-    public static void clearAlertsForRole(String rol) {
-        List<Alert> alerts = getAllAlerts();
-        List<Alert> filtradas = new ArrayList<>();
+    // Obtener las alertas visibles para un usuario específico
+    public static List<String> getAlertsForUser(String username) {
+        List<Alert> all = getAllAlerts();
+        List<String> mensajes = new ArrayList<>();
 
-        for (Alert a : alerts) {
-            if (!a.getDestinatarios().contains(rol)) {
-                filtradas.add(a); // Conservar solo las alertas que NO son para ese rol
+        for (Alert alert : all) {
+            if (alert.getDestinatarios().contains(username)) {
+                mensajes.add(alert.getMensaje());
             }
         }
 
-        JsonDB.save(ALERTS_JSON, filtradas); // Guardar la nueva lista filtrada
+        return mensajes;
+    }
+
+    // Eliminar alertas solo para un usuario específico
+    public static void clearAlertsForUser(String username) {
+        List<Alert> alerts = getAllAlerts();
+
+        for (Alert alert : alerts) {
+            alert.getDestinatarios().remove(username); // Quitar al usuario de la lista de destinatarios
+        }
+
+        JsonDB.save(ALERTS_JSON, alerts); // Guardar cambios
     }
 }
