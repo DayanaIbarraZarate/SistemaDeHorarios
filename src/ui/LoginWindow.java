@@ -14,35 +14,57 @@ public class LoginWindow extends JFrame {
 
     public LoginWindow() {
         setTitle("Login - Sistema de Horarios");
-        setSize(350, 200);
+        setSize(400, 250); // tamaño mediano
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        
+
+        // Colores
+        Color darkBg = new Color(34, 34, 34);
+        Color lightField = new Color(240, 240, 240);
+        Color lightButton = new Color(200, 200, 255);
+
         JPanel panel = new JPanel(new GridLayout(3, 2, 10, 10));
-        panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-        
+        panel.setBorder(BorderFactory.createEmptyBorder(25, 25, 25, 25));
+        panel.setBackground(darkBg);
+
         // Componentes
-        panel.add(new JLabel("Usuario:"));
+        JLabel userLabel = new JLabel("Usuario:");
+        userLabel.setForeground(Color.WHITE);
+        panel.add(userLabel);
+
         usernameField = new JTextField();
+        usernameField.setToolTipText("Ingrese su nombre de usuario");
+        usernameField.setBackground(lightField);
         panel.add(usernameField);
-        
-        panel.add(new JLabel("Contraseña:"));
+
+        JLabel passLabel = new JLabel("Contraseña:");
+        passLabel.setForeground(Color.WHITE);
+        panel.add(passLabel);
+
         passwordField = new JPasswordField();
+        passwordField.setToolTipText("Ingrese su contraseña");
+        passwordField.setBackground(lightField);
         panel.add(passwordField);
-        
+
         // Botones
         JButton loginButton = new JButton("Login");
+        loginButton.setBackground(lightButton);
+        loginButton.setForeground(Color.BLACK);
         loginButton.addActionListener(this::handleLogin);
-        
+
         JButton signupButton = new JButton("Registrarse");
+        signupButton.setBackground(lightButton);
+        signupButton.setForeground(Color.BLACK);
         signupButton.addActionListener(this::handleSignup);
-        
+
         JPanel buttonPanel = new JPanel(new GridLayout(1, 2, 10, 0));
+        buttonPanel.setBackground(darkBg);
         buttonPanel.add(loginButton);
         buttonPanel.add(signupButton);
-        
+
         add(panel, BorderLayout.CENTER);
         add(buttonPanel, BorderLayout.SOUTH);
+        getContentPane().setBackground(darkBg);
         setVisible(true);
     }
 
